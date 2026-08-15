@@ -1,0 +1,21 @@
+# ==========================================
+# SPLUNK DETECTION ENGINEERING QUERY LIBRARY
+# ==========================================
+
+# [DETECTION 1: Brute Force Authentication Detection]
+# Identifies potential brute-force activity by tracking multiple failed logons (EventCode 4625).
+sourcetype=WinEventLog:Security EventCode=4625 
+| stats count as failed_attempts by ComputerName Account_Name 
+| where failed_attempts > 5 
+| table ComputerName Account_Name failed_attempts
+
+# [DETECTION 2: Privileged Group Modification (Domain Admins)]
+# Flags high-risk additions to security-enabled global groups (EventCode 4728).
+sourcetype=WinEventLog:Security EventCode=4728 
+| table _time ComputerName Account_Name GroupName Caller_User_Name
+
+# [DETECTION 3: Suspicious PowerShell / Process Execution via Sysmon]
+# Detects encoded or hidden command-line execution patterns.
+sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 
+(CommandLine="* -enc *" OR CommandLine="* -encodedCommand *" OR CommandLine="* -windowstyle hidden *")
+| table _time Computer Name Image CommandLine
