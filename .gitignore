@@ -1,4 +1,12 @@
-__pycache__/
+# Logs and temporary files
 *.log
+*.tmp
+
+# OS generated files
 .DS_Store
-exports/
+Thumbs.db
+
+# Sensitive local data exports
+data/*.json
+data/*.csv
+!data/.gitkeep
