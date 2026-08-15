@@ -4,12 +4,14 @@
 
 ```text
 splunk-detection-lab/
+├── assets/
+│   └── execution.png           # Verification screenshot
 ├── configs/
-│   └── inputs.conf             # Forwarder and log ingestion telemetry parameters
+│   └── inputs.conf             # Forwarder telemetry
 ├── data/
-│   └── sample_events.json      # Structured sample event logs for testing
+│   └── sample_events.json      # Sample event logs
 ├── queries/
-│   └── security_detections.spl # Custom Search Processing Language (SPL) detection rules
+│   └── security_detections.spl # Custom SPL rules
 ├── .gitignore
 └── README.md
 ```
@@ -70,7 +72,12 @@ index=windows sourcetype=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational Eve
 
 | Path | Description |
 |---|---|
+| `assets/` | Contains visual verification screenshots of successful query execution. |
 | `configs/` | Contains forwarder ingestion configurations (`inputs.conf`). |
 | `data/` | Stores sample structured event payloads for offline testing. |
 | `queries/` | Houses custom Search Processing Language (SPL) detection rules. |
 | `README.md` | Comprehensive technical documentation and threat detection guide. |
+
+## 6. Execution Output & Verification
+
+![Execution Output & Verification](assets/execution.png)
